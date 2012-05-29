@@ -1,4 +1,6 @@
+from array import *
 def beta(filename,n):
+	import numpy as np
 	def nif(a):
 		import ast
 		eventcount=0
@@ -20,39 +22,51 @@ def beta(filename,n):
 	data=open(filename)
 	g=nif(data)
 	k=0
-	x=[]
-	y=[]
-	z=[]
+	Q=0
+	q=0
+	while q<n:
+		if len(g[q])<3:
+			q=q+1
+		else:
+			q=q+1
+			Q=Q+1
+	x=np.zeros(Q)
+	y=np.zeros(Q)
+	z=np.zeros(Q)
+	XC=0
 	while k<n:
 		if len(g[k])<3:
 			k=k+1
 		else:
 			if g[k][0]==1:
-				x.append(g[k][1])
-				y.append(g[k][2])
-				z.append(g[k][3])
+				x[XC]=g[k][1]
+				y[XC]=g[k][2]
+				z[XC]=g[k][3]
 				k=k+1
+				XC=XC+1
 			else:
-				x.append(g[k][1])
-				y.append(g[k][2])
-				z.append(g[k][3])
+				x[XC]=g[k][1]
+				y[XC]=g[k][2]
+				z[XC]=g[k][3]
 				k=k+1
-	import numpy as np
+				XC=XC+1
 	import matplotlib as mpl
+	import mpl_toolkits.mplot3d as m3d
 	from mpl_toolkits.mplot3d import Axes3D
 	import matplotlib.pyplot as plt
-	mpl.rcParams['legend.fontsize']=10
+	data= np.concatenate((x[:,np.newaxis],y[:, np.newaxis], z[:, np.newaxis]), axis = 1)
+	mean_data = data.mean(axis = 0)
+	aa, bb, cc = np.linalg.svd(data - mean_data)
+	#Change the arguments of np.mgrid to the average distance between particles
+	line_points = cc[0] * np.mgrid[-50:50:2j][:, np.newaxis]
+	line_points += mean_data
+	mpl.rcParams['legend.fontsize']=20
 	theta=np.linspace(-4*np.pi,4*np.pi,100)
-	z1=np.linspace(-2,2,100)
-	r=z1**2+1
-	x1=r*np.sin(theta)+20
-	y1=r*np.cos(theta)+30
-	fig=plt.figure()
-	ax=fig.gca(projection='3d')
-	ax.scatter(x,y,z,'^',c='r')
-	ax.plot(x1,y1,z1,label='hopefully')
-	ax.legend()
-	ax.set_xlabel('X Label')
-	ax.set_ylabel('Y Label')
-	ax.set_zlabel('Z Label')
+	graph_axis = m3d.Axes3D(plt.figure())
+	graph_axis.scatter3D(*data.T,c='r')
+	graph_axis.plot3D(*line_points.T,label='best fit')
+	graph_axis.legend()
+	graph_axis.set_xlabel('X Label')
+	graph_axis.set_ylabel('Y Label')
+	graph_axis.set_zlabel('Z Label')
 	plt.show()
