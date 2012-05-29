@@ -1,0 +1,24 @@
+import numpy as np
+from array import *
+
+x = np.array([1.0, 2.0, 3.0, 4.0, 5.0])
+y = np.array([2.0, 3.0, 4.0, 5.0, 6.0])
+z = np.array([3.0, 4.0, 5.0, 6.0, 7.0])
+
+data = np.concatenate((x[:, np.newaxis], y[:, np.newaxis], z[:, np.newaxis]), axis = 1)
+
+mean_data = data.mean(axis = 0)
+a, b, c = np.linalg.svd(data - mean_data)
+
+#Change the arguments of np.mgrid to the average distance between particles
+line_points = c[0] * np.mgrid[-7:7:2j][:, np.newaxis]
+
+line_points += mean_data
+
+import matplotlib.pyplot as plt
+import mpl_toolkits.mplot3d as m3d
+
+graph_axis = m3d.Axes3D(plt.figure())
+graph_axis.scatter3D(*data.T)
+graph_axis.plot3D(*line_points.T)
+plt.show()
