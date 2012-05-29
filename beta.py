@@ -61,9 +61,8 @@ def beta(filename,n):
 	line_points = cc[0] * np.mgrid[-50:50:2j][:, np.newaxis]
 	line_points += mean_data
 	mpl.rcParams['legend.fontsize']=20
-	theta=np.linspace(-4*np.pi,4*np.pi,100)
 	graph_axis = m3d.Axes3D(plt.figure())
-	graph_axis.scatter3D(*data.T,c='r')
+	graph_axis.scatter(x,y,z,c='r')
 	graph_axis.plot3D(*line_points.T,label='best fit')
 	graph_axis.legend()
 	graph_axis.set_xlabel('X Label')
