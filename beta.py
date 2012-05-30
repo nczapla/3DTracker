@@ -24,12 +24,12 @@ def beta(filename,n):
 	k=0
 	Q=0
 	q=0
-	"""while q<n:
+	while q<n:
 		if len(g[q])<3:
 			q=q+1
 		else:
 			q=q+1
-			Q=Q+1"""
+			Q=Q+1
 	x=np.zeros(Q)
 	y=np.zeros(Q)
 	z=np.zeros(Q)
