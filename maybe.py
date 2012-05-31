@@ -23,7 +23,8 @@ def compare(tt):
 	aa = list(tt) 
 	lent = len(tt)-1
 	bb = []
-	for ii in range(40): 
+	ii=1
+	while ii in range(40): 
 		if aa[ii][1]==0:
 			ii=ii+1
 		else:
