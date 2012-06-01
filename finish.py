@@ -48,18 +48,18 @@ def compare(tt):
 					bb.append(aa[ii+jj])
 					jj = jj + 1
 					x.append(aa[ii+jj][1])
-					"""y.append(aa[ii+jj][2])"""
-					"""z.append(aa[ii+jj][3])"""
+					y.append(aa[ii+jj][2])
+					z.append(aa[ii+jj][3])
 					X=array('f',x)
-					"""Y=array('f',y)"""
-					"""Z=array('f',z)"""
-					"""ax.scatter(X,Y,Z,c='b')"""
-					"""ax.scatter(x,y,z,c='r')"""
+					Y=array('f',y)
+					Z=array('f',z)
+					ax.scatter(X,Y,Z,c='b')
+					ax.scatter(x,y,z,c='r')
 					if aa[ii+jj][1]==0:
 						jj=jj+1
 					else:
 						jj=jj
 				ii=ii+1
-	"""plt.show()"""
+	plt.show()
 	return bb
 	
